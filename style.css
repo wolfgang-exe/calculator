@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body 
+{
+    font-family: 'inter', sans-serif;    
+}
+
+#calculator 
+{
+    background-color: rgb(80, 80, 80);
+    height: 576px;
+    width: 403px;
+    border-radius: 8px;
+    border-left: 1px solid black;
+    border-right: 1px solid black ;
+    border-top: 1px solid black;
+    color: #fff;
+}
+
+#display 
+{
+    border-bottom: 1px solid black;
+    font-weight: lighter;
+    font-size: 4rem;
+    height: 124px;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    padding: 0 20px
+}
+
+.row 
+{
+    border-bottom: 1px solid black;
+    height: 90.4px;
+    display: flex;
+}
+.row:last-child
+{
+    height: 84px;
+    border: none;
+}
+
+.box 
+{
+    height: 100%;
+    width: 100.75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 400;
+    font-size: 2.2rem;
+    border-right: 1px solid black;
+}
+.box:last-child
+{
+    border-right: none;
+}
+
+#zero 
+{
+    width: 203px;
+    border-bottom-left-radius: 8px;
+}
+#equal 
+{
+    border-bottom-right-radius: 8px;
+}
+
+.dark-box 
+{
+    background-color: rgb(62, 62, 62);
+}
+.orange-box
+{
+    background-color: #f1a62d;
+}
+.light-box
+{
+    background-color: rgb(116, 116, 116);
+}
