@@ -51,6 +51,7 @@ body
     font-weight: 400;
     font-size: 2.2rem;
     border-right: 1px solid black;
+    cursor: default;
 }
 .box:last-child
 {
@@ -73,7 +74,7 @@ body
 }
 .orange-box
 {
-    background-color: #f1a62d;
+    background-color: rgb(241, 166, 45);
 }
 .light-box
 {
