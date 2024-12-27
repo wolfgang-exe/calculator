@@ -49,7 +49,7 @@ function parseCalculatorInput(classList, input)
         processNumber(input);
         currentNumber = true;
     }
-    else if (classList.includes("math"))
+    else if (classList.includes("operator"))
     {
         // Operator input - mod, add, subtract, divide, multiply
         processOperator(input);

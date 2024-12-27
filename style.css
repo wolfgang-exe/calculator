@@ -2,7 +2,16 @@
 
 body 
 {
+    background-color: rgb(149, 149, 149);
     font-family: 'inter', sans-serif;    
+}
+
+.container
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #calculator 
