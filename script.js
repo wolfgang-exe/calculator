@@ -29,7 +29,6 @@ allBoxElements.forEach((box) => {
     });
 });
 
-
 // toggle button background color based on mouse down event
 function toggleColor(element, originalColor, toggleColor)
 {
@@ -45,142 +44,173 @@ function parseCalculatorInput(classList, input)
 
     if (classList.includes("number"))
     {
+        // Number input - integer, float
         updateNumberDisplay(input, currentNumber);
+        processNumber(input);
         currentNumber = true;
     }
     else if (classList.includes("math"))
     {
-        processNumber();
-        validateOperator(input);
+        // Operator input - mod, add, subtract, divide, multiply
+        processOperator(input);
+        numberValue = "";
         currentNumber = false;
     }
     else if (classList.includes("update-value"))
     {
-        switch (input)
+        // Non Operator or Number input - Clear, Equal, +/-
+        nonOprOrNumInput(input);
+    }
+}
+
+// update calculator display
+function updateNumberDisplay(input, currentNumber)
+{
+    if (!currentNumber)
+        display.innerText = "0";
+
+    if(display.innerText === "0" && input === '.')
+    {
+        display.innerText = "0.";
+    }
+    else if(display.innerText === "0" && input !== '.')
+    {
+        display.innerText = input;
+        numberValue += input;
+    }
+    else
+    {
+        display.innerText += input;
+        numberValue += input;
+    }
+}
+
+// get float or integer value and update
+function processNumber(input)
+{
+    input = floatOrInt(input);
+    updateNumber(numberValue);
+}
+
+// add or update number to equation
+function updateNumber(input)
+{
+    switch (equation.length)
+    {
+        case 0:
+            equation.push(input);
+            break;
+        case 1:
+            equation[0] = numberValue;
+            break;
+        case 2:
+            equation.push(input);
+            break;
+        case 3:
+            equation[2] = numberValue;
+            break;
+        default:
+            break;
+    }
+}
+
+// add or replace operator in equation
+function processOperator(input)
+{
+    switch (equation.length)
+    {
+        case 0:
+        case 1:
+            equation.push(input);
+            break;
+        case 2:
+            equation[1] = input;
+            break;
+        default:
+            break;
+    }
+}
+
+// compute the total
+function computeTotal()
+{
+    switch (equation.length)
+    {
+        case 0:
+        case 1:
+        case 2:
+            numberValue = equation[0];
+            break;
+        default:
+            console.log(equation);
+            numberValue = applyOperator(equation[0], equation[2], equation[1]);
+            break;
+    }
+}
+
+// clear and reset display
+function clearDisplay()
+{
+    display.innerText = "0";
+    numberValue = "";
+    finalValue = 0;
+    equation = [];
+}
+
+// applies operator to an equation
+function applyOperator(x,y,opr)
+{
+    x = floatOrInt(x);
+    y = floatOrInt(y);
+
+    if (opr === '÷' && y === 0)
+        return "Undefined";
+
+    switch (opr)
+    {
+        case "+":
+            return x+y;
+        case "-":
+            return x-y;
+        case "x":
+            return x*y;
+        case "÷":
+            return x/y;
+        case "%":
+            return x%y;
+        default:
+            return "Invalid";
+    }
+}
+
+// checks whether input is a float
+function floatOrInt(input)
+{
+    if (Math.floor(input) === Math.ceil(input))
+        return parseInt(input);
+    else 
+        return parseFloat(input);
+}
+
+// Process non number or operator inputs
+function nonOprOrNumInput(input)
+{
+    switch (input)
         {
             case 'C':
                 clearDisplay();
                 break;
 
             case '=':
-                if (numberValue == "")
-                    exit();
-                processNumber();
-                display.innerText = equation[0];
-
+                computeTotal();
+                display.innerText = numberValue;
+                numberValue = "";
                 break;
 
-            default: // +/- case
-                plusMinus();
-
+            default: // +/-
+                display.innerText = floatOrInt(numberValue) * -1;
+                numberValue = floatOrInt(numberValue) * -1
+                updateNumber(numberValue);
                 break;
         }
-    }
-    
-    if (equation.length === 3)
-        computeEquation();
-}
-
-function updateNumberDisplay(input, currentNumber)
-{
-    if (!currentNumber)
-        display.innerText = "0";
-
-    if(display.innerText === "0" && input === '.'){
-        display.innerText = "0.";
-    }
-    else if(display.innerText === "0" && input !== '.'){
-        display.innerText = input;
-        numberValue += input;
-    }
-    else{
-        display.innerText += input;
-        numberValue += input;
-    }
-}
-
-function processNumber()
-{
-    if (Math.floor(numberValue) === Math.ceil(numberValue))
-        equation.push(parseInt(numberValue));
-    else 
-        equation.push(parseFloat(numberValue));
-
-    numberValue = "";
-}
-
-function plusMinus()
-{
-    if (display.value === "0")
-    {
-        display.innerText = "0";
-        exit();
-    }
-
-    if (numberValue !== "")
-        processNumber();
-
-    if (equation.length === 3)
-    {
-        equation[2] *= -1;
-        display.innerText = equation[2];
-    }
-    else 
-    {
-        equation[0] *= -1;
-        display.innerText = equation[0]
-    }  
-}
-
-function clearDisplay()
-{
-    display.innerText = "0";
-    numberValue = "";
-}
-
-function computeEquation()
-{
-    let x = equation[0];
-    let opr = equation[1];
-    let y = equation[2];
-    equation = []; 
-    numberValue = "";
-
-    applyOperator(x,y,opr);
-}
-
-function validateOperator(input)
-{
-    if (equation[1] === undefined)
-        equation.push(input);
-    else 
-        equation[1] = input;
-}
-
-function applyOperator(x,y,opr)
-{
-    switch (opr)
-    {
-        case "+":
-            display.innerText = x+y;
-            break;
-        case "-":
-            display.innerText = x-y;
-            break;
-        case "x":
-            display.innerText = x*y;
-            break;
-        case "+":
-            if (y !== 0)
-                display.innerText = x/y;
-            else 
-                display.innerText = "Invalid";
-            break;
-        case "%":
-            display.innerText = x%y;
-            break;
-        default:
-            display.innerText = "Invalid";
-            break;
-    }
 }
