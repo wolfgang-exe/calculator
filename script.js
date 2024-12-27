@@ -153,7 +153,6 @@ function clearDisplay()
 {
     display.innerText = "0";
     numberValue = "";
-    finalValue = 0;
     equation = [];
 }
 
@@ -196,21 +195,21 @@ function floatOrInt(input)
 function nonOprOrNumInput(input)
 {
     switch (input)
-        {
-            case 'C':
-                clearDisplay();
-                break;
+    {
+        case 'C':
+            clearDisplay();
+            break;
 
-            case '=':
-                computeTotal();
-                display.innerText = numberValue;
-                numberValue = "";
-                break;
+        case '=':
+            computeTotal();
+            display.innerText = numberValue;
+            numberValue = "";
+            break;
 
-            default: // +/-
-                display.innerText = floatOrInt(numberValue) * -1;
-                numberValue = floatOrInt(numberValue) * -1
-                updateNumber(numberValue);
-                break;
-        }
+        default: // +/-
+            display.innerText = floatOrInt(numberValue) * -1;
+            numberValue = floatOrInt(numberValue) * -1
+            updateNumber(numberValue);
+            break;
+    }
 }
