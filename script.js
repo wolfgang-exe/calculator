@@ -130,6 +130,8 @@ function processOperator(input)
     switch (equation.length)
     {
         case 0:
+            equation[0] = display.innerText;
+            equation[1] = input;
         case 1:
             equation.push(input);
             break;
