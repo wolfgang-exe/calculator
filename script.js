@@ -147,7 +147,6 @@ function computeTotal()
             numberValue = equation[0];
             break;
         default:
-            console.log(equation);
             numberValue = applyOperator(equation[0], equation[2], equation[1]);
             break;
     }
