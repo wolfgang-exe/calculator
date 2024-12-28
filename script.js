@@ -126,6 +126,11 @@ function processOperator(input)
         case 2:
             equation[1] = input;
             break;
+        case 3:
+            computeTotal();
+            display.innerText = numberValue;
+            equation[0] = numberValue;
+            equation[1] = input;
         default:
             break;
     }
