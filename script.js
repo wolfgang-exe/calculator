@@ -83,6 +83,8 @@ function updateNumberDisplay(input, currentNumber)
         display.innerText += input;
         numberValue += input;
     }
+
+    checkDisplayOverflow();
 }
 
 // get float or integer value and update
@@ -112,6 +114,14 @@ function updateNumber(input)
         default:
             break;
     }
+
+    checkDisplayOverflow();
+}
+
+function checkDisplayOverflow()
+{
+    if (display.innerText.length >= 11)
+        display.innerText = display.innerText.substring(0,11);
 }
 
 // add or replace operator in equation
@@ -131,6 +141,7 @@ function processOperator(input)
             display.innerText = numberValue;
             equation[0] = numberValue;
             equation[1] = input;
+            checkDisplayOverflow();
         default:
             break;
     }
@@ -208,12 +219,14 @@ function nonOprOrNumInput(input)
             computeTotal();
             display.innerText = numberValue;
             numberValue = "";
+            checkDisplayOverflow();
             break;
 
         default: // +/-
             display.innerText = floatOrInt(numberValue) * -1;
             numberValue = floatOrInt(numberValue) * -1
             updateNumber(numberValue);
+            checkDisplayOverflow();
             break;
     }
 }
