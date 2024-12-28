@@ -6,7 +6,7 @@ const darkOrange = "rgb(196, 136, 39)";
 const allBoxElements = document.querySelectorAll('.box');
 const display = document.getElementById('display');
 let currentNumber = true;
-let numberValue = "";
+let numberValue = "0";
 let equation = [];
 
 allBoxElements.forEach((box) => {
@@ -169,7 +169,7 @@ function computeTotal()
 function clearDisplay()
 {
     display.innerText = "0";
-    numberValue = "";
+    numberValue = "0";
     equation = [];
 }
 
@@ -219,14 +219,14 @@ function nonOprOrNumInput(input)
 
         case '=':
             computeTotal();
+            equation = [];
             display.innerText = numberValue;
-            numberValue = "";
             checkDisplayOverflow();
             break;
 
         default: // +/-
-            display.innerText = floatOrInt(numberValue) * -1;
             numberValue = floatOrInt(numberValue) * -1
+            display.innerText = numberValue;
             updateNumber(numberValue);
             checkDisplayOverflow();
             break;
