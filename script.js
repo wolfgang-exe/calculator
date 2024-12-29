@@ -118,6 +118,7 @@ function updateNumber(input)
     checkDisplayOverflow();
 }
 
+// Shortens the displayed number to prevent overflow
 function checkDisplayOverflow()
 {
     if (display.innerText.length >= 11)
@@ -141,9 +142,9 @@ function processOperator(input)
         case 3:
             computeTotal();
             display.innerText = numberValue;
+            checkDisplayOverflow();
             equation[0] = numberValue;
             equation[1] = input;
-            checkDisplayOverflow();
         default:
             break;
     }
@@ -228,7 +229,6 @@ function nonOprOrNumInput(input)
             numberValue = floatOrInt(numberValue) * -1
             display.innerText = numberValue;
             updateNumber(numberValue);
-            checkDisplayOverflow();
             break;
     }
 }
